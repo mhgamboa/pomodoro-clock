@@ -1,19 +1,30 @@
 import React from "react";
 import "../index.css";
 
+// Material-Ui Components
+import { Button, Typography, Card } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+
 export default function Timer({ minute, second }) {
   console.log(minute);
   return (
-    <div className="border">
-      <h2>Timer</h2>
-      <h3>
+    <Card className="border" variant="outlined">
+      <Typography variant="h3" align="center">
+        Timer
+      </Typography>
+      <Typography variant="h4" align="center">
         {minute}:{second}
-      </h3>
+      </Typography>
 
       <div className="plusMinusContainer">
-        <span className="plus">+</span>
-        <span className="minus">-</span>
+        <Button className="plus">
+          <AddIcon />
+        </Button>
+        <Button className="minus">
+          <RemoveIcon />
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 }
