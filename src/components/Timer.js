@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../index.css";
 
 // Material-Ui Components
@@ -9,7 +9,8 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 
 export default function Timer({ minute, second, setMinute }) {
-  console.log(minute);
+  let [timerActive, runTimer] = useState(false);
+
   function adjustTime(mathOperation) {
     switch (mathOperation) {
       case "add":
@@ -23,6 +24,11 @@ export default function Timer({ minute, second, setMinute }) {
         break;
     }
   }
+
+  const toggleTimer = () => {
+    setInterval(() => console.log("hi"), 1000);
+  };
+
   return (
     <Card className="border" variant="outlined">
       <Typography variant="h3" align="center">
@@ -33,23 +39,14 @@ export default function Timer({ minute, second, setMinute }) {
       </Typography>
 
       <div className="plusMinusContainer">
+        {/* Play/Pause Putton */}
         <Button
-          className="plus"
-          onClick={() => adjustTime("add")}
           variant="contained"
+          onClick={() => toggleTimer()}
+          fullWidth={true}
         >
-          <AddIcon />
-        </Button>
-        <Button variant="contained">
           <PlayArrowIcon />
           <PauseIcon />
-        </Button>
-        <Button
-          className="minus"
-          onClick={() => adjustTime("minus")}
-          variant="contained"
-        >
-          <RemoveIcon />
         </Button>
       </div>
     </Card>
