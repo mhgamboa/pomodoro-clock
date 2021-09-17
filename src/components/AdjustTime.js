@@ -16,10 +16,10 @@ export default function AdjustTime({ type, time }) {
         {time}
       </Typography>
       <div className="plusMinusContainer">
-        <Button className="plus">
+        <Button className="plus" variant="contained">
           <AddIcon />
         </Button>
-        <Button className="minus">
+        <Button className="minus" variant="contained">
           <RemoveIcon />
         </Button>
       </div>

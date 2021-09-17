@@ -15,16 +15,11 @@ function App() {
 
   useEffect(() => {
     document.title = `${minute}:${second}`;
-  }, []);
+  });
 
   return (
     <main className="app">
-      <Timer
-        minute={minute}
-        second={second}
-        setMinute={setMinute}
-        setSecond={setSecond}
-      />
+      <Timer minute={minute} second={second} setMinute={setMinute} />
       <div className="adjustersContainer">
         <AdjustTimer
           type="Session"
@@ -32,7 +27,6 @@ function App() {
           minute={minute}
           second={second}
           setMinute={setMinute}
-          setSecond={setSecond}
         />
         {/* <AdjustTimer
           type="Break"
@@ -40,7 +34,6 @@ function App() {
           minute={minute}
           second={second}
           setMinute={setMinute}
-          setSecond={setSecond}
         /> */}
       </div>
     </main>
