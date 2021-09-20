@@ -6,7 +6,21 @@ import { Button, Typography, Card } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
-export default function AdjustTime({ type, time }) {
+export default function AdjustTime({ type, time, minute, setMinute }) {
+  function adjustTime(mathOperation) {
+    switch (mathOperation) {
+      case "add":
+        console.log("add");
+        setMinute(minute + 1);
+        break;
+      case "minus":
+        setMinute(minute - 1);
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <Card className="border" variant="outlined">
       <Typography variant="h3" align="center">

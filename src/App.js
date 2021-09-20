@@ -8,10 +8,11 @@ import AdjustTimer from "./components/AdjustTime";
 import { Card } from "@material-ui/core";
 
 function App() {
-  let [minute, setMinute] = useState(20);
-  let [second, setSecond] = useState("00");
   let [initialSessionTime, setSessionTime] = useState(25);
   let [initialBreakTime, setBreakTime] = useState(5);
+  let [minute, setMinute] = useState(initialSessionTime);
+  let [second, setSecond] = useState(59);
+  let [timerActive, toggleTimerActive] = useState(false);
 
   useEffect(() => {
     document.title = `${minute}:${second}`;
@@ -19,7 +20,14 @@ function App() {
 
   return (
     <main className="app">
-      <Timer minute={minute} second={second} setMinute={setMinute} />
+      <Timer
+        minute={minute}
+        second={second}
+        setMinute={setMinute}
+        setSecond={setSecond}
+        timerActive={timerActive}
+        toggleTimerActive={toggleTimerActive}
+      />
       <div className="adjustersContainer">
         <AdjustTimer
           type="Session"
