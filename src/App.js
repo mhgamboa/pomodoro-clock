@@ -4,18 +4,18 @@ import React, { useState, useEffect } from "react";
 import Timer from "./components/Timer";
 import AdjustTimer from "./components/AdjustTime";
 
-// Material UI
-import { Card } from "@material-ui/core";
-
 function App() {
-  let [initialSessionTime, setSessionTime] = useState(25);
-  let [initialBreakTime, setBreakTime] = useState(5);
-  let [minute, setMinute] = useState(initialSessionTime);
-  let [second, setSecond] = useState(59);
+  const initialSessionTime = 25;
+  const initialBreakTime = 5;
+  let [sesstionTime, setSessionTime] = useState(initialSessionTime);
+  let [breakTime, setBreakTime] = useState(initialBreakTime);
+  let [minute, setMinute] = useState(sesstionTime);
+  let [second, setSecond] = useState(5);
   let [timerActive, toggleTimerActive] = useState(false);
+  let [currentSession, changeSessionType] = useState("session");
 
   useEffect(() => {
-    document.title = `${minute}:${second}`;
+    document.title = `${minute}:${second < 10 ? `0${second}` : second}`;
   });
 
   return (
@@ -27,22 +27,23 @@ function App() {
         setSecond={setSecond}
         timerActive={timerActive}
         toggleTimerActive={toggleTimerActive}
+        initialSessionTime={initialSessionTime}
+        initialBreakTime={initialBreakTime}
+        setBreakTime={setBreakTime}
       />
       <div className="adjustersContainer">
         <AdjustTimer
           type="Session"
-          time={initialSessionTime}
+          time={sesstionTime}
           minute={minute}
-          second={second}
-          setMinute={setMinute}
+          setMinute={setSessionTime}
         />
-        {/* <AdjustTimer
+        <AdjustTimer
           type="Break"
-          time={initialBreakTime}
+          time={breakTime}
           minute={minute}
-          second={second}
-          setMinute={setMinute}
-        /> */}
+          setMinute={setBreakTime}
+        />
       </div>
     </main>
   );

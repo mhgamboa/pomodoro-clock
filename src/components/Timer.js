@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../index.css";
 
 // Material-Ui Components
 import { Button, Typography, Card } from "@material-ui/core";
-
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 
 export default function Timer({
   minute,
@@ -14,20 +14,40 @@ export default function Timer({
   setSecond,
   timerActive,
   toggleTimerActive,
+  initialSessionTime,
+  initialBreakTime,
+  setBreakTime,
 }) {
   const playFunction = () => {
-    console.log("Now Playing");
     toggleTimerActive(!timerActive);
     window.runTimer = setInterval(() => {
-      console.log("hi");
+      //If minute === 0 Make Noise and start break time
+      setSecond((second) => {
+        if (second === 0) {
+          if (minute > 0) {
+            setMinute((minute) => minute - 1);
+            return (second = 59);
+          }
+        } else {
+          return --second;
+        }
+      });
     }, 1000);
   };
 
   const pauseFunction = () => {
-    console.log("Now Pausing");
     toggleTimerActive(!timerActive);
-
     clearInterval(window.runTimer);
+  };
+
+  const resetFunction = () => {
+    if (timerActive) {
+      toggleTimerActive(!timerActive);
+      clearInterval(window.runTimer);
+    }
+    setMinute(initialSessionTime);
+    setBreakTime(initialBreakTime);
+    setSecond(0);
   };
 
   return (
@@ -36,7 +56,7 @@ export default function Timer({
         Timer
       </Typography>
       <Typography variant="h4" align="center">
-        {minute}:{second}
+        {minute}:{second < 10 ? `0${second}` : second}
       </Typography>
 
       <div className="plusMinusContainer">
@@ -48,6 +68,9 @@ export default function Timer({
         >
           <PlayArrowIcon />
           <PauseIcon />
+        </Button>
+        <Button variant="contained" onClick={() => resetFunction()}>
+          <RotateLeftIcon />
         </Button>
       </div>
     </Card>
