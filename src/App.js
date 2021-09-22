@@ -10,13 +10,19 @@ function App() {
   let [sessionTime, setSessionTime] = useState(initialSessionTime);
   let [breakTime, setBreakTime] = useState(initialBreakTime);
   let [minute, setMinute] = useState(sessionTime);
-  let [second, setSecond] = useState(5);
+  let [second, setSecond] = useState(0);
   let [timerActive, toggleTimerActive] = useState(false);
   let [isStudySession, changeSessionType] = useState(true);
 
   useEffect(() => {
-    document.title = `${minute}:${second < 10 ? `0${second}` : second}`;
+    document.title = `${minute}:${second < 10 ? `0${second}` : second} ${
+      isStudySession ? "Study" : "Break"
+    } Time Left`;
   }, [second, minute]);
+
+  useEffect(() => {
+    console.log(sessionTime, breakTime);
+  });
 
   return (
     <main className="app">
@@ -40,13 +46,16 @@ function App() {
           type="Session"
           time={sessionTime}
           minute={minute}
-          setMinute={setSessionTime}
+          setTime={setSessionTime}
+          timerActive={timerActive}
+          setMinute={setMinute}
         />
         <AdjustTimer
           type="Break"
           time={breakTime}
           minute={minute}
           setMinute={setBreakTime}
+          setTime={setBreakTime}
         />
       </div>
       <audio

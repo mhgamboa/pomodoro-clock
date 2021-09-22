@@ -53,7 +53,7 @@ export default function Timer({
   return (
     <Card className="border" variant="outlined">
       <Typography variant="h3" align="center">
-        Timer
+        {isStudySession ? "Study" : "Break"} Timer
       </Typography>
       <Typography variant="h4" align="center">
         {minute}:{second < 10 ? `0${second}` : second}
