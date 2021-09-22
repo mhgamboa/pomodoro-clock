@@ -1,12 +1,13 @@
 import "./index.css";
 import React, { useState, useEffect } from "react";
+import Fade from "react-reveal/Fade";
 
 import Timer from "./components/Timer";
 import AdjustTimer from "./components/AdjustTime";
 
 function App() {
-  const initialSessionTime = 25;
-  const initialBreakTime = 5;
+  const initialSessionTime = 1;
+  const initialBreakTime = 2;
   let [sessionTime, setSessionTime] = useState(initialSessionTime);
   let [breakTime, setBreakTime] = useState(initialBreakTime);
   let [minute, setMinute] = useState(sessionTime);
@@ -18,46 +19,51 @@ function App() {
     document.title = `${minute}:${second < 10 ? `0${second}` : second} ${
       isStudySession ? "Study" : "Break"
     } Time Left`;
-  }, [second, minute]);
+  }, [second, minute, isStudySession]);
 
   useEffect(() => {
     console.log(sessionTime, breakTime);
+    console.log(timerActive);
   });
 
   return (
     <main className="app">
-      <Timer
-        minute={minute}
-        second={second}
-        setMinute={setMinute}
-        setSecond={setSecond}
-        timerActive={timerActive}
-        toggleTimerActive={toggleTimerActive}
-        initialSessionTime={initialSessionTime}
-        initialBreakTime={initialBreakTime}
-        setBreakTime={setBreakTime}
-        isStudySession={isStudySession}
-        changeSessionType={changeSessionType}
-        sessionTime={sessionTime}
-        breakTime={breakTime}
-      />
-      <div className="adjustersContainer">
-        <AdjustTimer
-          type="Session"
-          time={sessionTime}
+      <Fade top>
+        <Timer
           minute={minute}
-          setTime={setSessionTime}
-          timerActive={timerActive}
+          second={second}
           setMinute={setMinute}
+          setSecond={setSecond}
+          timerActive={timerActive}
+          toggleTimerActive={toggleTimerActive}
+          initialSessionTime={initialSessionTime}
+          initialBreakTime={initialBreakTime}
+          setBreakTime={setBreakTime}
+          setSessionTime={setSessionTime}
+          isStudySession={isStudySession}
+          changeSessionType={changeSessionType}
+          sessionTime={sessionTime}
+          breakTime={breakTime}
         />
-        <AdjustTimer
-          type="Break"
-          time={breakTime}
-          minute={minute}
-          setMinute={setBreakTime}
-          setTime={setBreakTime}
-        />
-      </div>
+        <div className="adjustersContainer">
+          <AdjustTimer
+            type="Session"
+            time={sessionTime}
+            minute={minute}
+            setTime={setSessionTime}
+            timerActive={timerActive}
+            setMinute={setMinute}
+            isStudySession={isStudySession}
+          />
+          <AdjustTimer
+            type="Break"
+            time={breakTime}
+            minute={minute}
+            setMinute={setMinute}
+            setTime={setBreakTime}
+          />
+        </div>
+      </Fade>
       <audio
         id="beep"
         src="https://freesound.org/data/previews/202/202029_2605156-lq.mp3"

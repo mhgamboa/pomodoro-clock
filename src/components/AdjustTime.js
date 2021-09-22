@@ -13,12 +13,18 @@ export default function AdjustTime({
   setTime,
   timerActive,
   setMinute,
+  isStudySession,
 }) {
   useEffect(() => {
-    if (!timerActive && type === "Session") {
+    if (!timerActive && type === "Session" && isStudySession) {
       setMinute(time);
     }
-  }, [time]);
+
+    if (!timerActive && type === "Break" && !isStudySession) {
+      setMinute(time);
+    }
+  }, [time, setMinute, type]);
+
   return (
     <Card className="border" variant="outlined">
       <Typography variant="h3" align="center">

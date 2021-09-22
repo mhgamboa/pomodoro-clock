@@ -7,63 +7,53 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 
-export default function Timer({
-  minute,
-  setMinute,
-  second,
-  setSecond,
-  timerActive,
-  toggleTimerActive,
-  initialSessionTime,
-  initialBreakTime,
-  setBreakTime,
-  changeSessionType,
-  isStudySession,
-  sessionTime,
-  breakTime,
-}) {
+export default function Timer(props) {
+  // Handle Timer
   useEffect(() => {
-    if (timerActive) {
+    if (props.timerActive) {
       let timer = window.setInterval(() => {
-        if (second === 0) {
-          if (minute === 0) {
-            window.audioBeep.play();
-            setSecond(0);
-            setMinute(isStudySession ? breakTime : sessionTime);
-            changeSessionType(!isStudySession);
-          }
-          setSecond(60);
-          setMinute((prevMinute) => prevMinute - 1);
+        if (props.second === 0 && props.minute === 0) {
+          window.audioBeep.play();
+          props.setSecond(0);
+          props.setMinute(
+            props.isStudySession ? props.breakTime : props.sessionTime
+          );
+          props.changeSessionType(!props.isStudySession);
+        } else if (props.second === 0 && props.minute > 0) {
+          props.setSecond(59);
+          props.setMinute((prevMinute) => prevMinute - 1);
+        } else {
+          props.setSecond((prevSecond) => prevSecond - 1);
         }
-        setSecond((prevSecond) => prevSecond - 1);
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [second, minute, timerActive]);
+  }, [props.second, props.minute, props.timerActive]);
 
   const resetFunction = () => {
-    toggleTimerActive(false);
+    props.toggleTimerActive(false);
     clearInterval(window.runTimer);
 
-    setMinute(initialSessionTime);
-    setBreakTime(initialBreakTime);
-    setSecond(0);
+    props.changeSessionType(true);
+    props.setBreakTime(props.initialBreakTime);
+    props.setSessionTime(props.initialSessionTime);
+    props.setSecond(0);
   };
 
   return (
     <Card className="border" variant="outlined">
       <Typography variant="h3" align="center">
-        {isStudySession ? "Study" : "Break"} Timer
+        {props.isStudySession ? "Study" : "Break"} Timer
       </Typography>
       <Typography variant="h4" align="center">
-        {minute}:{second < 10 ? `0${second}` : second}
+        {props.minute}:{props.second < 10 ? `0${props.second}` : props.second}
       </Typography>
 
       <div className="plusMinusContainer">
         {/* Play/Pause Putton */}
         <Button
           variant="contained"
-          onClick={() => toggleTimerActive(!timerActive)}
+          onClick={() => props.toggleTimerActive(!props.timerActive)}
           fullWidth={true}
         >
           <PlayArrowIcon />
