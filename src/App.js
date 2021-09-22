@@ -7,16 +7,16 @@ import AdjustTimer from "./components/AdjustTime";
 function App() {
   const initialSessionTime = 25;
   const initialBreakTime = 5;
-  let [sesstionTime, setSessionTime] = useState(initialSessionTime);
+  let [sessionTime, setSessionTime] = useState(initialSessionTime);
   let [breakTime, setBreakTime] = useState(initialBreakTime);
-  let [minute, setMinute] = useState(sesstionTime);
+  let [minute, setMinute] = useState(sessionTime);
   let [second, setSecond] = useState(5);
   let [timerActive, toggleTimerActive] = useState(false);
-  let [currentSession, changeSessionType] = useState("session");
+  let [isStudySession, changeSessionType] = useState(true);
 
   useEffect(() => {
     document.title = `${minute}:${second < 10 ? `0${second}` : second}`;
-  });
+  }, [second, minute]);
 
   return (
     <main className="app">
@@ -30,11 +30,15 @@ function App() {
         initialSessionTime={initialSessionTime}
         initialBreakTime={initialBreakTime}
         setBreakTime={setBreakTime}
+        isStudySession={isStudySession}
+        changeSessionType={changeSessionType}
+        sessionTime={sessionTime}
+        breakTime={breakTime}
       />
       <div className="adjustersContainer">
         <AdjustTimer
           type="Session"
-          time={sesstionTime}
+          time={sessionTime}
           minute={minute}
           setMinute={setSessionTime}
         />
@@ -45,6 +49,13 @@ function App() {
           setMinute={setBreakTime}
         />
       </div>
+      <audio
+        id="beep"
+        src="https://freesound.org/data/previews/202/202029_2605156-lq.mp3"
+        ref={(audio) => {
+          window.audioBeep = audio;
+        }}
+      ></audio>
     </main>
   );
 }

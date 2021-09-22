@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../index.css";
 
 // Material-Ui Components
@@ -17,34 +17,34 @@ export default function Timer({
   initialSessionTime,
   initialBreakTime,
   setBreakTime,
+  changeSessionType,
+  isStudySession,
+  sessionTime,
+  breakTime,
 }) {
-  const playFunction = () => {
-    toggleTimerActive(!timerActive);
-    window.runTimer = setInterval(() => {
-      //If minute === 0 Make Noise and start break time
-      setSecond((second) => {
+  useEffect(() => {
+    if (timerActive) {
+      let timer = window.setInterval(() => {
         if (second === 0) {
-          if (minute > 0) {
-            setMinute((minute) => minute - 1);
-            return (second = 59);
+          if (minute === 0) {
+            window.audioBeep.play();
+            setSecond(0);
+            setMinute(isStudySession ? breakTime : sessionTime);
+            changeSessionType(!isStudySession);
           }
-        } else {
-          return --second;
+          setSecond(60);
+          setMinute((prevMinute) => prevMinute - 1);
         }
-      });
-    }, 1000);
-  };
-
-  const pauseFunction = () => {
-    toggleTimerActive(!timerActive);
-    clearInterval(window.runTimer);
-  };
+        setSecond((prevSecond) => prevSecond - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [second, minute, timerActive]);
 
   const resetFunction = () => {
-    if (timerActive) {
-      toggleTimerActive(!timerActive);
-      clearInterval(window.runTimer);
-    }
+    toggleTimerActive(false);
+    clearInterval(window.runTimer);
+
     setMinute(initialSessionTime);
     setBreakTime(initialBreakTime);
     setSecond(0);
@@ -63,7 +63,7 @@ export default function Timer({
         {/* Play/Pause Putton */}
         <Button
           variant="contained"
-          onClick={() => (timerActive ? pauseFunction() : playFunction())}
+          onClick={() => toggleTimerActive(!timerActive)}
           fullWidth={true}
         >
           <PlayArrowIcon />
