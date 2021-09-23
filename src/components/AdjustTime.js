@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../index.css";
 
 // Material-Ui Components
-import { Button, Typography, Card } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
@@ -25,11 +25,11 @@ export default function AdjustTime({
   }, [time, setMinute, type]);
 
   return (
-    <Card className="border" variant="outlined">
-      <Typography variant="h3" align="center">
+    <div className="adjuster fade-animation">
+      <Typography variant="h2" component="h1" align="center">
         {type}
       </Typography>
-      <Typography variant="h4" align="center">
+      <Typography variant="h3" align="center">
         {time}
       </Typography>
       <div className="plusMinusContainer">
@@ -52,6 +52,6 @@ export default function AdjustTime({
           <RemoveIcon />
         </Button>
       </div>
-    </Card>
+    </div>
   );
 }

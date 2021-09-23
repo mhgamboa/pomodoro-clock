@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../index.css";
 
 // Material-Ui Components
-import { Button, Typography, Card } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
@@ -41,11 +41,11 @@ export default function Timer(props) {
   };
 
   return (
-    <Card className="border" variant="outlined">
-      <Typography variant="h3" align="center">
+    <div className="timer fade-animation" variant="outlined">
+      <Typography variant="h2" component="h1" align="center">
         {props.isStudySession ? "Study" : "Break"} Timer
       </Typography>
-      <Typography variant="h4" align="center">
+      <Typography variant="h3" align="center">
         {props.minute}:{props.second < 10 ? `0${props.second}` : props.second}
       </Typography>
 
@@ -63,6 +63,6 @@ export default function Timer(props) {
           <RotateLeftIcon />
         </Button>
       </div>
-    </Card>
+    </div>
   );
 }
