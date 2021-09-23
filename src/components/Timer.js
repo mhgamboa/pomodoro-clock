@@ -52,15 +52,20 @@ export default function Timer(props) {
       <div className="plusMinusContainer">
         {/* Play/Pause Putton */}
         <Button
+          size="large"
           variant="contained"
           onClick={() => props.toggleTimerActive(!props.timerActive)}
           fullWidth={true}
         >
-          <PlayArrowIcon />
-          <PauseIcon />
+          <PlayArrowIcon fontSize="large" />
+          <PauseIcon fontSize="large" />
         </Button>
-        <Button variant="contained" onClick={() => resetFunction()}>
-          <RotateLeftIcon />
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => resetFunction()}
+        >
+          <RotateLeftIcon fontSize="large" />
         </Button>
       </div>
     </div>

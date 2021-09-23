@@ -34,22 +34,24 @@ export default function AdjustTime({
       </Typography>
       <div className="plusMinusContainer">
         <Button
+          size="large"
           className="plus"
           variant="contained"
           onClick={() =>
             !timerActive && time < 60 && setTime((prevMinute) => prevMinute + 1)
           }
         >
-          <AddIcon />
+          <AddIcon fontSize="large" />
         </Button>
         <Button
+          size="large"
           className="minus"
           variant="contained"
           onClick={() =>
             !timerActive && time > 1 && setTime((prevMinute) => prevMinute - 1)
           }
         >
-          <RemoveIcon />
+          <RemoveIcon fontSize="large" />
         </Button>
       </div>
     </div>

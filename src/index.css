@@ -11,14 +11,27 @@
   box-sizing: border-box;
 }
 
+/* html,
+body,
+.app {
+  overflow: auto;
+} */
+
 .app {
   min-height: 100vh;
+  height: 100%;
   width: 100vw;
+  overflow: auto;
   background: linear-gradient(
-    135deg,
-    rgba(15, 117, 188, 1) 0%,
-    rgba(0, 90, 154, 1) 100%
-  );
+      135deg,
+      rgba(15, 117, 188, 1) 0%,
+      rgba(0, 90, 154, 1) 100%
+    )
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
   /* App Alignment */
   display: flex;
@@ -89,7 +102,6 @@
 .plusMinusContainer {
   display: flex;
   justify-content: space-evenly;
-  display: flex;
 }
 
 /* Fade Animation */
