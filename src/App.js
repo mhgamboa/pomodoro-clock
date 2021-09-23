@@ -21,12 +21,6 @@ function App() {
     } Time Left`;
   }, [second, minute, isStudySession]);
 
-  useEffect(() => {
-    console.log(`sessionTime: ${sessionTime}, breakTime: ${breakTime}`);
-    console.log(`timerActive: ${timerActive}`);
-    console.log(`isStudySession: ${isStudySession}`);
-  });
-
   return (
     <main className="app">
       <Fade top>
