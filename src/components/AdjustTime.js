@@ -9,7 +9,6 @@ import RemoveIcon from "@material-ui/icons/Remove";
 export default function AdjustTime({
   type,
   time,
-  minute,
   setTime,
   timerActive,
   setMinute,

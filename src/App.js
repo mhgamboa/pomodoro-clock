@@ -22,8 +22,9 @@ function App() {
   }, [second, minute, isStudySession]);
 
   useEffect(() => {
-    console.log(sessionTime, breakTime);
-    console.log(timerActive);
+    console.log(`sessionTime: ${sessionTime}, breakTime: ${breakTime}`);
+    console.log(`timerActive: ${timerActive}`);
+    console.log(`isStudySession: ${isStudySession}`);
   });
 
   return (
@@ -59,8 +60,10 @@ function App() {
             type="Break"
             time={breakTime}
             minute={minute}
-            setMinute={setMinute}
             setTime={setBreakTime}
+            timerActive={timerActive}
+            setMinute={setMinute}
+            isStudySession={isStudySession}
           />
         </div>
       </Fade>
