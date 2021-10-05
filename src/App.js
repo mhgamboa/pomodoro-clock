@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     document.title = `${minute}:${second < 10 ? `0${second}` : second} ${
       isStudySession ? "Study" : "Break"
-    } Time Left`;
+    } Time`;
   }, [second, minute, isStudySession]);
 
   return (
